@@ -12,4 +12,4 @@ workspace file (\*.mat) format. Raw data was obtained from
 
 Note that the modeling ideas strongly overlaps with ideas discussed by prof.
 Tony Padilla in
-[this Numberphile](https://www.youtube.com/watch?v=Vv9wpQIGZDw).
+[this Numberphile video](https://www.youtube.com/watch?v=Vv9wpQIGZDw).
