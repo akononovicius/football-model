@@ -17,7 +17,7 @@ clear all;
 %
 % Octave users need this line. Matlab users should delete it.
 %
-pkg load statistics;
+%pkg load statistics;
 
 %% Load the data
 %
@@ -113,10 +113,10 @@ clf();
 hold on;
 
 pdf = getPdf(muPoints,30);
-plot(pdf(:,1),pdf(:,2));
+plot(pdf(:,1),pdf(:,2),'r');
 
 pdf = getPdf(secPoints,30);
-plot(pdf(:,1),pdf(:,2));
+plot(pdf(:,1),pdf(:,2),'k');
 
 legend('Machester United','Second team in PRL');
 
@@ -124,5 +124,5 @@ legend('Machester United','Second team in PRL');
 % Also let us report the number of times (in our sample) Manchester United has
 % also won the league.
 %
-printf('\nManchester United has won the league %d of %d\n',...
+fprintf('\nManchester United has won the league %d of %d\n',...
        sum(muPoints>secPoints),length(muPoints));

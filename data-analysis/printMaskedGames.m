@@ -13,7 +13,7 @@
 %   nothing
 %
 function printMaskedGames(mask, dataStruct, header)
-    printf('%s\n', header);
+    fprintf('%s\n', header);
     idx = (1:length(dataStruct.homeTeam));
     for gid = idx(mask)
         printGame(gid, dataStruct, '   ');

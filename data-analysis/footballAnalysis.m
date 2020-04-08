@@ -72,10 +72,10 @@ clf();
 
 pie([homeWins homeLost draws],{'Home Wins' 'Home Losses', 'Draws'});
 
-printf('Home Team game result absolute and relative frequencies:\n');
-printf('    Won:   %02d (%.2f)\n', homeWins, homeWins/totalGames);
-printf('    Lost:  %02d (%.2f)\n', homeLost, homeLost/totalGames);
-printf('    Drawn: %02d (%.2f)\n', draws, draws/totalGames);
+fprintf('Home Team game result absolute and relative frequencies:\n');
+fprintf('    Won:   %02d (%.2f)\n', homeWins, homeWins/totalGames);
+fprintf('    Lost:  %02d (%.2f)\n', homeLost, homeLost/totalGames);
+fprintf('    Drawn: %02d (%.2f)\n', draws, draws/totalGames);
 
 clear homeWins homeLost draws totalGames;
 
@@ -112,14 +112,14 @@ subplot(122);
 pie([awayWins awayLost awayDraws],{'Away Wins' 'Away Losses', 'Away Draws'});
 title('Top teams playing away');
 
-printf('Home Team (Top 5 team) game result absolute and relative frequencies:\n');
-printf('    Won:   %02d (%.2f)\n', homeWins, homeWins/totalHomeGames);
-printf('    Lost:  %02d (%.2f)\n', homeLost, homeLost/totalHomeGames);
-printf('    Drawn: %02d (%.2f)\n', homeDraws, homeDraws/totalHomeGames);
-printf('Away Team (Top 5 team) game result absolute and relative frequencies:\n');
-printf('    Won:   %02d (%.2f)\n', awayWins, awayWins/totalAwayGames);
-printf('    Lost:  %02d (%.2f)\n', awayLost, awayLost/totalAwayGames);
-printf('    Drawn: %02d (%.2f)\n', awayDraws, awayDraws/totalAwayGames);
+fprintf('Home Team (Top 5 team) game result absolute and relative frequencies:\n');
+fprintf('    Won:   %02d (%.2f)\n', homeWins, homeWins/totalHomeGames);
+fprintf('    Lost:  %02d (%.2f)\n', homeLost, homeLost/totalHomeGames);
+fprintf('    Drawn: %02d (%.2f)\n', homeDraws, homeDraws/totalHomeGames);
+fprintf('Away Team (Top 5 team) game result absolute and relative frequencies:\n');
+fprintf('    Won:   %02d (%.2f)\n', awayWins, awayWins/totalAwayGames);
+fprintf('    Lost:  %02d (%.2f)\n', awayLost, awayLost/totalAwayGames);
+fprintf('    Drawn: %02d (%.2f)\n', awayDraws, awayDraws/totalAwayGames);
     
 clear homeWins homeLost homeDraws totalHomeGames ...
       awayWins awayLost awayDraws totalAwayGames ...
@@ -143,11 +143,11 @@ engData = applyDataMask(engData, idx);
 % We will calculate home and away goals for each team.
 %
 goalsHA = zeros(length(teamNames),2);
-printf('\n%40s\n','------ Home / Away Goals ------');
+fprintf('\n%40s\n','------ Home / Away Goals ------');
 for i = 1:length(teamNames)
     goalsHA(i,1) = getTotalGoals(engData, teamNames{i}, 'home');
     goalsHA(i,2) = getTotalGoals(engData, teamNames{i}, 'away');
-    printf('%20s %d %d %.3f\n',teamNames{i},...
+    fprintf('%20s %d %d %.3f\n',teamNames{i},...
                                goalsHA(i,1),goalsHA(i,2),...
                                goalsHA(i,1)/goalsHA(i,2));
 end
@@ -159,7 +159,7 @@ clear goalsHA;
 % each team.
 %
 goalsFS = zeros(length(teamNames),2);
-printf('\n%40s\n','------ First / Second Half of the season ------');
+fprintf('\n%40s\n','------ First / Second Half of the season ------');
 for i = 1:length(teamNames)
     % select games with teamNames(i)
     homeMask = getHomeTeamMask(engData, teamNames(i));
@@ -172,12 +172,10 @@ for i = 1:length(teamNames)
     
     firstHalfMask = ([ones(19,1); zeros(19,1)] > 0.5)';
     
-    goalsFS(i,1) = sum(homeMask(firstHalfMask) .* teamData.homeGoals(firstHalfMask) .+ ...
-                awayMask(firstHalfMask) .* teamData.awayGoals(firstHalfMask));
-    goalsFS(i,2) = sum(homeMask(~firstHalfMask) .* teamData.homeGoals(~firstHalfMask) .+ ...
-                awayMask(~firstHalfMask) .* teamData.awayGoals(~firstHalfMask));
+    goalsFS(i,1) = sum(homeMask(firstHalfMask) .* teamData.homeGoals(firstHalfMask) + awayMask(firstHalfMask) .* teamData.awayGoals(firstHalfMask));
+    goalsFS(i,2) = sum(homeMask(~firstHalfMask) .* teamData.homeGoals(~firstHalfMask) + awayMask(~firstHalfMask) .* teamData.awayGoals(~firstHalfMask));
     
-    printf('%20s %d %d %.3f\n',teamNames{i},...
+    fprintf('%20s %d %d %.3f\n',teamNames{i},...
                                goalsFS(i,1),goalsFS(i,2),...
                                goalsFS(i,1)/goalsFS(i,2));
 end
