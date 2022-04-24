@@ -2,8 +2,6 @@
 %
 % *Author*: <http://kononovicius.lt Aleksejus Kononovicius>
 %
-% *License*: <https://creativecommons.org/licenses/by/4.0/ CC-BY>
-%
 % *Note*: prior to running this script you should run |footballClean.m| script,
 % which prepares raw csv data and translates it into workspace file.
 %

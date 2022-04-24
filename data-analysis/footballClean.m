@@ -2,8 +2,6 @@
 %
 % *Author*: <http://kononovicius.lt Aleksejus Kononovicius>
 %
-% *License*: <https://creativecommons.org/licenses/by/4.0/ CC-BY>
-%
 % *Note that* |england.csv| file is available on GitHub from
 % <https://github.com/jalapic/engsoccerdata/tree/master/data-raw>. You should
 % download it prior to runnig this script.

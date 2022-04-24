@@ -2,8 +2,6 @@
 %
 % *Author*: <http://kononovicius.lt Aleksejus Kononovicius>
 %
-% *License*: <https://creativecommons.org/licenses/by/4.0/ CC-BY>
-%
 % *Note*: This approach is quite similar to the one discussed by prof. Tony
 % Padilla in the following Numberphile video
 % <https://www.youtube.com/watch?v=Vv9wpQIGZDw>. Yet it was developed atleast
