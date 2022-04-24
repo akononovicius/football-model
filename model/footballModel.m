@@ -4,30 +4,32 @@
 %
 % *Note*: This approach is quite similar to the one discussed by prof. Tony
 % Padilla in the following Numberphile video
-% <https://www.youtube.com/watch?v=Vv9wpQIGZDw>. Yet it was developed atleast
-% somewhat independently (I have promissed my students to do such model few days
-% before actually seeing this video).
+% <https://www.youtube.com/watch?v=Vv9wpQIGZDw>. Yet it was developed
+% at least somewhat independently (I have promissed my students to do such
+% model few days before actually seeing this video).
 %
 
 clear;
 
 %% Dependencies
 %
-% Octave users need this line. Matlab users should delete it.
+% GNU Octave users need this line. Matlab users can safely delete it.
+% Though I doubt that the updated code will run on GNU Octave.
 %
+
 %pkg load statistics;
 
 %% Load the data
 %
-% We have already prepared and cleaned up the data and saved it as workspace
-% file (mat file). So let us take advantage of it and load it.
+% We have already prepared and cleaned up the data and saved it as
+% workspace file (mat file). So let us take advantage of it and load it.
 %
-load('engData.mat');
+load('../data-analysis/engData.mat');
 
 %% Determining model parameters
 %
-% First let us gell all unique team names and the total number of teams, which
-% will be used in our simulation
+% First let us gell all unique team names and the total number of teams,
+% which will be used in our simulation
 % 
 
 teamNames = unique(engData.homeTeam);
@@ -35,8 +37,8 @@ teamNames = unique(engData.homeTeam);
 totalTeams = length(teamNames);
 
 %%
-% Based on the data we have let us estimate the parameters of the statistical 
-% model. Recall that our model depends on six parameters:
+% Based on the data we have let us estimate the parameters of the
+% statistical model. Recall that our model depends on six parameters:
 % * overall scoring potential of an average home team (lambdaHG; single value)
 % * overall scoring potential of an average away team (lambdaAG; single value)
 % * relative attacking potential of a specific home team (attHome; team vector)
@@ -71,13 +73,14 @@ clear i homeTeamMask awayTeamMask;
 
 %% Generate single season
 %
-% Let us generate the season. Each team plays each other team twice: once home,
-% once away. So we have 38 games per team.
+% Let us generate the season. Each team plays each other team twice: once
+% home, once away. So we have 38 games per team.
 %
 modelData = generateSeason(teamNames, lambdaHG, lambdaAG,...
                            attHome, attAway, defHome, defAway);
 
-% Let us now figure out the points scored by each team within our fake season.
+% Let us now figure out the points scored by each team within our fake
+% season.
 tableData = calculateTable(modelData);
 
 % Let us print out the standings.
@@ -85,16 +88,17 @@ printTable(tableData);
 
 %% Generate multiple seasons
 %
-% Getting one season is fun and all, but what we are interested in is to get
-% insights from multiple runs. As an example of insight lets get a sample of
-% points which Manchester United (champion of 2000/01) could have scored as
-% well as number of points the second team has scored. Lets get 1000 samples
-% (it will take some time).
+% Getting one season is fun and all, but what we are interested in is to
+% get insights from multiple runs. As an example of insight lets get a
+% sample of points which Manchester United (champion of 2000/01) could have
+% scored as well as number of points the second team has scored. Lets get
+% 1000 samples (it will take some time).
 %
 
-muPoints=[];
-secPoints=[];
-for i=1:1000
+n_seasons = 1000;
+muPoints=zeros(1, n_seasons);
+secPoints=zeros(1, n_seasons);
+for i=1:n_seasons
     modelData = generateSeason(teamNames, lambdaHG, lambdaAG,...
                                attHome, attAway, defHome, defAway);
     tableData = calculateTable(modelData);
@@ -104,7 +108,8 @@ for i=1:1000
 end
 
 %%
-% Let us plot the respective PDFs (for Manchester United and the second team).
+% Let us plot the respective PDFs (for Manchester United and the second
+% team (whichever it would be for a particular season)).
 %
 figure(1);
 clf();
@@ -119,8 +124,8 @@ plot(pdf(:,1),pdf(:,2),'k');
 legend('Machester United','Second team in PRL');
 
 %%
-% Also let us report the number of times (in our sample) Manchester United has
-% also won the league.
+% Also let us report the number of times (in our sample) Manchester United
+% has also won the league.
 %
 fprintf('\nManchester United has won the league %d of %d\n',...
        sum(muPoints>secPoints),length(muPoints));

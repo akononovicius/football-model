@@ -17,7 +17,7 @@ clear;
 load('engData.mat');
 
 %% Highest scoring games
-% 
+%
 % Let us figure out number of differrent highest scoring games. Let us start
 % simply with highest total goals, $ TG $:
 %
@@ -81,8 +81,8 @@ clear homeWins homeLost draws totalGames;
 % What about if the home team is one of the top 5 teams?
 %
 
-dataMask = getHomeTeamMask(engData,{'Manchester United' 'Arsenal' 'Liverpool'...
-                                    'Leeds United' 'Ipswitch Town'});
+dataMask = getHomeTeamMask(engData,{'Manchester United' 'Arsenal' ...
+    'Liverpool' 'Leeds United' 'Ipswitch Town'});
 topHomeGames = applyDataMask(engData, dataMask);
 
 homeWins = sum(topHomeGames.homeGoals > topHomeGames.awayGoals);
@@ -90,8 +90,8 @@ homeLost = sum(topHomeGames.homeGoals < topHomeGames.awayGoals);
 homeDraws = sum(topHomeGames.homeGoals == topHomeGames.awayGoals);
 totalHomeGames = length(topHomeGames.homeGoals);
 
-dataMask = getAwayTeamMask(engData,{'Manchester United' 'Arsenal' 'Liverpool'...
-                                    'Leeds United' 'Ipswitch Town'});
+dataMask = getAwayTeamMask(engData,{'Manchester United' 'Arsenal' ...
+    'Liverpool' 'Leeds United' 'Ipswitch Town'});
 topAwayGames = applyDataMask(engData, dataMask);
 
 awayWins = sum(topAwayGames.homeGoals < topAwayGames.awayGoals);
@@ -118,11 +118,11 @@ fprintf('Away Team (Top 5 team) game result absolute and relative frequencies:\n
 fprintf('    Won:   %02d (%.2f)\n', awayWins, awayWins/totalAwayGames);
 fprintf('    Lost:  %02d (%.2f)\n', awayLost, awayLost/totalAwayGames);
 fprintf('    Drawn: %02d (%.2f)\n', awayDraws, awayDraws/totalAwayGames);
-    
+
 clear homeWins homeLost homeDraws totalHomeGames ...
-      awayWins awayLost awayDraws totalAwayGames ...
-      dataMask topHomeGames topAwayGames;
-      
+    awayWins awayLost awayDraws totalAwayGames ...
+    dataMask topHomeGames topAwayGames;
+
 %% Preparing data for further analysis
 %
 % Lets get all team names within our data set.
@@ -132,8 +132,7 @@ teamNames = unique(engData.homeTeam);
 %%
 % Lets do data sorting by the date game was played.
 %
-[tmp, idx] = sort(engData.dateString);
-clear tmp;
+[~, idx] = sort(engData.dateString);
 engData = applyDataMask(engData, idx);
 
 %% Is there a difference between goals scored at home and away?
@@ -146,8 +145,7 @@ for i = 1:length(teamNames)
     goalsHA(i,1) = getTotalGoals(engData, teamNames{i}, 'home');
     goalsHA(i,2) = getTotalGoals(engData, teamNames{i}, 'away');
     fprintf('%20s %d %d %.3f\n',teamNames{i},...
-                               goalsHA(i,1),goalsHA(i,2),...
-                               goalsHA(i,1)/goalsHA(i,2));
+        goalsHA(i,1), goalsHA(i,2), goalsHA(i,1)/goalsHA(i,2));
 end
 clear goalsHA;
 
@@ -167,13 +165,12 @@ for i = 1:length(teamNames)
     % create masks home and away games within teamData
     homeMask = getHomeTeamMask(teamData, teamNames(i,1));
     awayMask = getAwayTeamMask(teamData, teamNames(i,1));
-    
+
     firstHalfMask = ([ones(19,1); zeros(19,1)] > 0.5)';
-    
+
     goalsFS(i,1) = sum(homeMask(firstHalfMask) .* teamData.homeGoals(firstHalfMask) + awayMask(firstHalfMask) .* teamData.awayGoals(firstHalfMask));
     goalsFS(i,2) = sum(homeMask(~firstHalfMask) .* teamData.homeGoals(~firstHalfMask) + awayMask(~firstHalfMask) .* teamData.awayGoals(~firstHalfMask));
-    
+
     fprintf('%20s %d %d %.3f\n',teamNames{i},...
-                               goalsFS(i,1),goalsFS(i,2),...
-                               goalsFS(i,1)/goalsFS(i,2));
+        goalsFS(i,1), goalsFS(i,2), goalsFS(i,1)/goalsFS(i,2));
 end
