@@ -13,11 +13,14 @@
 function pdf = getPdf(data,outPoints)
     minData = min(data);
     maxData = max(data);
-    stepSize = (maxData-minData)/(outPoints-1);
 
-    xBins = (minData-stepSize):stepSize:(maxData+stepSize);
-    pdf = hist(data,xBins);
+    edges = linspace(minData, maxData, outPoints+1);
+    stepSize = edges(2) - edges(1);
+
+    pdf = histcounts(data,edges);
     pdf = pdf ./ length(data);
     pdf = pdf ./ stepSize;
-    pdf = [xBins; pdf]';
+
+    bins = (edges(2:end) + edges(1:(end-1)))/2;
+    pdf = [bins; pdf]';
 end
