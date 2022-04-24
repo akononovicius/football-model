@@ -16,7 +16,7 @@ function out = applyDataMask(dataStruct, mask)
     fields = fieldnames(dataStruct);
     out = struct();
     for i = 1:length(fields)
-        values = getfield(dataStruct, fields{i});
-        out = setfield(out, fields{i}, values(mask));
+        values = dataStruct.(fields{i});
+        out.(fields{i}) = values(mask);
     end
 end
