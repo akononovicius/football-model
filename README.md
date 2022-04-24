@@ -21,3 +21,13 @@ by Octave. The code was updated and mat files were regenerated.
 Note that after the update we have decided to include raw data file (originally
 downloaded from [engsoccerdata repository on GitHub](https://github.com/jalapic/engsoccerdata)).
 As it seems that data format has changed in the upstream repository.
+
+**Update 2022-04-24:** Another update in 2022. Various updates to match new
+practices. Also `main.m` scripts are include for clarity.
+
+## How to run
+
+Both folders include `main.m` scripts, which gather everything inside the
+folders into a single "interpret-able" file. Note that you should run
+`data-analysis/main.m` first to generate `*.mat` file used by the
+`model/main.m` script.
