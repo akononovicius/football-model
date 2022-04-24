@@ -6,7 +6,7 @@
 % which prepares raw csv data and translates it into workspace file.
 %
 
-clear all;
+clear;
 
 %% Load workspace
 %

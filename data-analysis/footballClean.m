@@ -7,7 +7,7 @@
 % download it prior to runnig this script.
 %
 
-clear all;
+clear;
 
 %% Read the data
 %

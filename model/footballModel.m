@@ -9,7 +9,7 @@
 % before actually seeing this video).
 %
 
-clear all;
+clear;
 
 %% Dependencies
 %
