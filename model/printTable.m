@@ -14,8 +14,7 @@ function printTable(tableStruct)
     totalTeams = length(tableStruct.teamNames);
     
     % sort the data
-    [tmp, idx] = sort(tableStruct.points);
-    clear tmp;
+    [~, idx] = sort(tableStruct.points);
     sortedStruct = applyDataMask(tableStruct,idx);
     
     % print in the reverse order (from top to bottom)
